@@ -14,7 +14,6 @@ const getVideos = originList => {
             videoList.push(object.data);
             return ;
         }
-
         Object.values(object).forEach(value => {
             if (typeof value === 'object' && value) {
                 getVideoListRecursively(value);
@@ -40,7 +39,7 @@ const state = {
 
 const getters = {
     pickedVideos: state => state.pickedVideos,
-    getVideoById: state => id => state.videoData.find(item => item.id === id),  
+    getVideoById: state => id => state.videoData.find(item => item.id === +id),
     relatedVideos: state => state.relatedVideos,
     discoveryData: state => state.discoveryData,
     recommendData:  state => state.recommendData,
@@ -56,10 +55,18 @@ const mutations = {
         state.discoveryData = payload;
     },
     setVideoData (state, payload) {
-        let { videoData } = state;
-        [].push.apply(videoData, payload);
-
-        videoData = videoData.filter((item, index, arr) => index === arr.findIndex(fItem => fItem.id === item.id));
+        const { videoData } = state;
+        if (payload instanceof Array) {
+            payload.forEach(willBePushItem => {
+                if (videoData.find(videoItem => videoItem.id === willBePushItem.id)) {
+                    return ;
+                } else {
+                    videoData.push(willBePushItem);
+                }
+            });
+        } else {
+            videoData.push(payload);
+        }
         state.videoData = videoData;
     },
     setRelatedVideos (state, payload) {
@@ -159,10 +166,30 @@ const actions = {
             vc: '3808'
         });
         const res = await request.default(`http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?`, params);
+
         const { itemList, nextPageUrl } = res;
         const videoList = getVideos(itemList);
         commit('setVideoData', videoList);
         commit('setRecommendData', itemList);
+    },
+    async queryVideo ({ state, getters, commit }, params) {
+        const { id } = params;
+        Object.assign(params, {
+            page: 0,
+            f: 'iphone',
+            net: 'wifi',
+            p_product: 'EYEPETIZER_IOS',
+            u: '33aeddea51fc808d6dfc9f3bb66f7b4eaa177900',
+            v: '3.14.0',
+            vc: '3808'
+        });
+        const video = getters.getVideoById(id);
+        if (video) return true;
+
+        const resVideo = await request.default(`http://baobab.kaiyanapp.com/api/v2/video/${id}?`, params);
+        commit('setVideoData', resVideo);
+        return true;
+
     }
 }
 

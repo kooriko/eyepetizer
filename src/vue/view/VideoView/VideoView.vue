@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.video-container
+    div.video-container(v-if="video")
         video.video#video(controls autoplay :src="video.playUrl")
         div.content
             div.cover(:style="`background-image: url(${video.cover.blurred})`")
@@ -43,7 +43,8 @@ export default {
     },
     data () {
         return {
-            fromPath: null
+            fromPath: null,
+            video: null
         }
     },
     watch: {
@@ -56,11 +57,6 @@ export default {
             'getVideoById',
             'relatedVideos'
         ]),
-        video () {
-            const video = this.getVideoById(this.$route.query.id);
-            if (!video) this.$router.push({name: 'home-discovery'});
-            return video;
-        },
         consumption () {
             if (!this.video) return false;
             return this.video.consumption;
@@ -81,10 +77,17 @@ export default {
         requestRelatedVideos (id) {
             const params = { id };
             this.$store.dispatch('videos/requestRelatedVideos', params);
+        },
+        async queryVideo (id) {
+            const params = { id };
+            const flag = await this.$store.dispatch('videos/queryVideo', params);
+            this.video = this.getVideoById(id);
         }
     },
     created () {
-        this.requestRelatedVideos(this.$route.query.id);
+        const { id } = this.$route.query;
+        this.queryVideo(id);
+        this.requestRelatedVideos(id);
     },
     beforeRouteEnter (to, from, next) {
         const { fullPath } = from;

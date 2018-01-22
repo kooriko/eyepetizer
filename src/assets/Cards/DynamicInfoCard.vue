@@ -5,7 +5,7 @@
             p.nickname.g-title {{ user.nickname }}
             p.text.g-desc {{ data.text }}
             p.reply {{ reply.message }}
-            div.simple-video(@click="$_toVideoPage(simpleVideo.id)")
+            div.simple-video(@click.stop="$_toVideoPage(simpleVideo.id)")
                 m-video.video-img(:data="__videoInfo")
                 div.video-info
                     p.g-title {{ simpleVideo.title }}

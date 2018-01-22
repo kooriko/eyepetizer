@@ -34,6 +34,9 @@ plugin.install = () => {
             },
             $_toAuthorPage (aid) {
                 console.log(aid);
+            },
+            $_toVideoReplyPage (replyId) {
+                console.log(replyId);
             }
         }
     })
