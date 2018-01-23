@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.m-brief-card
+    div.m-brief-card(@click="$_toCategoryPage(data.actionUrl)")
         img.avatar(:class="[ data.iconType ? `shape--${data.iconType}` : null ]" :src="data.icon" width="40" height="40")
         div.content
             p.title {{ data.title }}

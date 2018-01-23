@@ -2,7 +2,7 @@
     div.eye-menu
         ul.eye-menu-truth(ref="menu")
             slot
-            div.hover-bar(ref="hoverBar" :style="`transform: translateX(${22 + 55 * activeIndex }px)`")
+            div.hover-bar(ref="hoverBar" :style="`width: ${ hoverBarWidth }px; transform: translateX(${ translateX }px)`")
 </template>
 
 <script>
@@ -12,27 +12,43 @@ export default {
         defaultIndex: {
             type: String,
             default: ''
+        },
+        itemWidth: {
+            type: Number,
+            default: 0
+        },
+        hoverBarWidth: {
+            type: Number,
+            default: 12
         }
     },
     data () {
         return {
-            activeIndex: this.defaultIndex
+            activeIndex: this.defaultIndex,
+            realItemWidth: 0,
+            translateX: 0
         }
     },
     watch: {
         defaultIndex (after) {
             this.activeIndex = after;
         },
-        activeIndex (after, before) {
-            const { menu, hoverBar } = this.$refs;
-            if (after !== before) {
-                this.changeHandler(after);
+        activeIndex: {
+            handler (after, before) {
+                const { menu, hoverBar } = this.$refs;
+                if (after !== before) {
+                    this.changeHandler(after);
+                }
+                this.changeTranslateX(after);
             }
-        }
+        } 
     },
     methods: {
-        changeHandler (after) {
-            this.$emit('change', after);
+        changeHandler (index) {
+            this.$emit('change', index);
+        },
+        changeTranslateX (index) {
+            this.translateX = (this.realItemWidth - this.hoverBarWidth) / 2 + this.realItemWidth * index;
         }
     },
     created () {
@@ -57,10 +73,20 @@ export default {
             this.activeIndex = index;
         });
     },
+    mounted () {
+        const { menu } = this.$refs;
+
+        this.$nextTick(() => {
+            this.realItemWidth = menu.children[0].offsetWidth;
+            this.changeTranslateX(this.activeIndex);
+        });
+    }
 }
 </script>
 
 <style lang="scss">
+@import '../styles/var.scss';
+
 .eye-menu {
     width: 85vw;
     height: 40px;
@@ -68,6 +94,7 @@ export default {
 
     .eye-menu-truth {
         position: relative;
+        @include flex(row);
         width: 100%;
         height: 40px;
         padding-top: 10px;
@@ -75,9 +102,13 @@ export default {
         overflow-y: scroll;
         font-size: 0;
 
+        .eye-menu-item {
+            flex-shrink: 0;
+        }
+
         .hover-bar {
             position: absolute;
-            width: 11px;
+            width: 12px;
             height: 3px;
             background: #666;
             bottom: 15px;

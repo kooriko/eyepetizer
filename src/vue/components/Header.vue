@@ -3,7 +3,7 @@
         div.left
         h1.title
             eye-menu(:defaultIndex="categoryIndex" @change="changeCategoryIndex")
-                eye-menu-item(v-for="(item, index) in menuItems" :key="index" :index="String(index)") {{ item.name }}
+                eye-menu-item(v-for="(item, index) in menuItems" width="50px" :key="index" :index="String(index)") {{ item.name }}
         div.search
 </template>
 <script>

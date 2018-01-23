@@ -7,7 +7,8 @@ import Footer from '@/vue/components/Footer';
 
 import BodyView from '@/vue/view/homeView/BodyView';
 import VideoView from '@/vue/view/VideoView/VideoView';
-import ReplyView from '@/vue/view/ReplyView/ReplyView'
+import ReplyView from '@/vue/view/ReplyView/ReplyView';
+import CategoryView from '@/vue/view/CategoryView/CategoryView';
 
 import Recommand from '@/vue/view/homeView/Recommand';
 import Daily from '@/vue/view/homeView/Daily';
@@ -42,7 +43,7 @@ const router = new Router({
 				component: Daily
 			},
 			{
-				path: '/category',
+				path: '/home',
 				name: 'home-category',
 				component: Category
 			}
@@ -64,6 +65,10 @@ const router = new Router({
 			path: '/reply',
 			name: 'reply',
 			component: ReplyView
+		}, {
+			path: '/category/:categoryId',
+			name: 'category',
+			component: CategoryView
 		}
 	],
 });

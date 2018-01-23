@@ -1,5 +1,5 @@
 <template lang="pug">
-    li.eye-menu-item(@click="clickHandler" :class="[ isActive ? 'is-active' : '' ]")
+    li.eye-menu-item(@click="clickHandler" :style="`width: ${this.width ? this.width : 'unset' }`" :class="[ isActive ? 'is-active' : '' ]")
         slot
 </template>
 
@@ -8,6 +8,7 @@ export default {
     name: 'eye-menu-item',
     props: {
         index: String,
+        width: String
     },
     computed: {
         menu () {
@@ -22,6 +23,9 @@ export default {
             this.$bus.$emit('handleClick', this.index);
         }
     },
+    created () {
+        console.log(this.width);
+    }
 }
 </script>
 

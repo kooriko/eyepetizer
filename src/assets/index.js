@@ -42,9 +42,14 @@ plugin.install = () => {
                 const query = url.parse(actionUrl).query;
                 this.$router.push({ name: 'reply', query: queryToObject(query) });
             },
+            $_toCategoryPage (actionUrl) {
+                const urlObj = url.parse(actionUrl);
+                const { host, path } = urlObj;
+                this.$router.push({ path: `category${path}` });
+            },
             $_backTo () {
                 this.$router.push({ path: this.fromPath });
-            }
+            },
         },
         computed: {
             ...mapGetters('ui', [ 'fromPath' ])
