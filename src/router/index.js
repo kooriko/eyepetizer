@@ -6,6 +6,7 @@ import Footer from '@/vue/components/Footer';
 
 import BodyView from '@/vue/view/homeView/BodyView';
 import VideoView from '@/vue/view/VideoView/VideoView';
+import ReplyView from '@/vue/view/ReplyView/ReplyView'
 
 import Recommand from '@/vue/view/homeView/Recommand';
 import Daily from '@/vue/view/homeView/Daily';
@@ -59,6 +60,10 @@ export default new Router({
 			path: '/video',
 			name: 'video',
 			component: VideoView
+		}, {
+			path: '/reply',
+			name: 'reply',
+			component: ReplyView
 		}
   ]
 })

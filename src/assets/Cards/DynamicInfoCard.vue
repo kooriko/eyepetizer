@@ -24,7 +24,7 @@ export default {
     },
     filters: {
         getDate (val) {
-            return $(val).format('YYYY-MM-DD');
+            return moment(val).format('LL');
         }
     },
     computed: {

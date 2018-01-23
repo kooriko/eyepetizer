@@ -71,7 +71,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       '_': 'lodash',
-      '$': 'moment',
+      'moment': 'moment',
       'axios': 'axios',
       'request': 'request'
     }),

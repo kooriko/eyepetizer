@@ -15,6 +15,7 @@ import SquareCardCollection from './Collections/SquareCardCollection';
 import VideoCollectionWithBrief from './Collections/VideoCollectionWithBrief';
 import Video from './package/video';
 import Banner from './package/banner';
+import Reply from './package/reply';
 
 const plugin = {};
 
@@ -28,15 +29,13 @@ plugin.install = () => {
     Vue.mixin({
         methods: {
             $_toVideoPage (vid) {
-                console.log(vid);
-                console.log(window.scrollY);
                 this.$router.push({ name: 'video', query: { id: vid } });
             },
             $_toAuthorPage (aid) {
                 console.log(aid);
             },
-            $_toVideoReplyPage (replyId) {
-                console.log(replyId);
+            $_toVideoReplyPage (vid) {
+                this.$router.push({ name: 'reply', query: { id: vid } });
             }
         }
     })
@@ -54,6 +53,7 @@ plugin.install = () => {
         HorizontalScrollCard,
         VideoCollectionWithBrief,
         Video,
+        Reply,
         SquareCardCollection
     ];
     components.forEach(item => {

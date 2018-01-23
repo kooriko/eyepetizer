@@ -6,10 +6,14 @@ import App from './App'
 import router from './router';
 import store from './store';
 
+import VueScroller from 'vue-scroller';
 import eyepetizerAssets from '@/assets/';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
+moment.locale('zh-cn');
+
+Vue.use(VueScroller);
 Vue.use(eyepetizerAssets);
 
 /* eslint-disable no-new */
@@ -19,4 +23,4 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
-})
+});

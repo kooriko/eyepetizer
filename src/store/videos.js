@@ -34,7 +34,8 @@ const state = {
     relatedVideos: [],
     recommendData: [],
     dailyData: [],
-    categoryData: {}
+    categoryData: {},
+    replyData: []
 };
 
 const getters = {
@@ -44,7 +45,8 @@ const getters = {
     discoveryData: state => state.discoveryData,
     recommendData:  state => state.recommendData,
     dailyData: state => state.dailyData,
-    originCategoryData: state => state.categoryData
+    originCategoryData: state => state.categoryData,
+    replyData: state => state.replyData
 };
 
 const mutations = {
@@ -81,6 +83,9 @@ const mutations = {
     setCategoryData (state, payload) {
         const { category, list } = payload;
         state.categoryData[category] = list;
+    },
+    setReplyData (state, payload) {
+        state.replyData = payload;
     }
 };
 
@@ -189,7 +194,21 @@ const actions = {
         const resVideo = await request.default(`http://baobab.kaiyanapp.com/api/v2/video/${id}?`, params);
         commit('setVideoData', resVideo);
         return true;
+    },
+    async requestVideoReplies ({ commit }, params) {
+        Object.assign(params, {
+            page: 0,
+            f: 'iphone',
+            net: 'wifi',
+            p_product: 'EYEPETIZER_IOS',
+            u: '33aeddea51fc808d6dfc9f3bb66f7b4eaa177900',
+            v: '3.14.0',
+            vc: '3808'
+        });
+        const res = await request.default(`http://baobab.kaiyanapp.com/api/v2/replies/video?`, params);
+        const { itemList, nextPageUrl } = res;
 
+        commit('setReplyData', itemList);
     }
 }
 

@@ -18,9 +18,11 @@
         padding: $vertical $horizontal;
     }
 
-    @mixin flex ($direction: row) {
+    @mixin flex ($direction: row, $justify-content: flex-start, $align-items: flex-start) {
         display: flex;
         flex-direction: $direction;
+        justify-content: $justify-content;
+        align-items: $align-items;
     }
 
     @mixin absolute ($position) {
