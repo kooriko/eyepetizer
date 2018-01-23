@@ -74,11 +74,6 @@ const template = [{
     label: '38'
 }];
 export default {
-    data () {
-        return {
-            // categoryIndex: "1",
-        }
-    },
     computed: {
         menuItems () {
             return template;
@@ -105,6 +100,7 @@ export default {
 @import '../../styles/var.scss';
 .m-header {
     position: fixed;
+    z-index: 10;
     top: 0; right: 0; left: 0;
     height: 40px;
     justify-content: center;

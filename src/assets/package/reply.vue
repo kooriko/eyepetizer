@@ -40,9 +40,6 @@ export default {
         parentReplyUser () {
             return this.parentReply ? this.parentReply.user : null;
         }
-    },
-    created () {
-        console.log(this.data);
     }
 }
 </script>
@@ -51,27 +48,37 @@ export default {
 
 .m-reply-card {
     @include flex(row);
-    @include padding(3vw);
+    padding: 3vw 0 3vw 3vw;
 
     .content {
         flex-grow: 1;
+        // overflow: hidden;
+        padding-right: 3vw;
         @include flex(column);
+        @include split-line(#555);
 
         .top {
             width: 100%;
             @include flex(row, space-between);
         }
+
         .reply {
-            margin: 2vw 0;
+            margin-top: 3vw;
         }
 
         .parent-reply-container {
             @include flex(row);
-            @include padding(2vw);
+            @include padding(3vw);
+            box-sizing: border-box;
+            margin-top: 2vw;
+            width: 100%;
             background: rgba(0, 0, 0, .3);
+            .parent-reply {
+                margin-top: 1vw;
+            }
         }
         .bottom {
-            margin-top: 2vw;
+            margin: 3vw 0;
             span {
                 margin-right: 5vw;
             }

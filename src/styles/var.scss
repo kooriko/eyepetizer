@@ -34,15 +34,17 @@
         }
     }
 
-    @mixin split-line {
-        position: relative;
+    @mixin split-line($color: #EEE, $flag: true) {
+        @if $flag {
+            position: relative;
+        }
 
         &:after {
             content: '';
             position: absolute;
-            bottom: 0; left: 3vw;
-            width: 94vw; height: 1px;
-            background: #EEE;
+            bottom: 0; left: 0;
+            width: 100%; height: 1px;
+            background: $color;
         }
     }
 
@@ -57,7 +59,7 @@
         font-weight: $font-weight;
         font-size: $font-size;
     }
-    @mixin text-ellipsis () {
+    @mixin text-ellipsis {
         // max-width: $width;
         white-space: nowrap;
         overflow: hidden;

@@ -21,16 +21,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/var.scss';
 .m-horizontal-scroll-card {
-    overflow: hidden;
     height: 220px;
     padding: 3vw 0;
 
     .card-list {
-        display: flex;
-        flex-direction: row;
+        @include flex(row);
         white-space: nowrap;
-        overflow: auto;
         padding-bottom: 40px;
 
         .scroll-card {

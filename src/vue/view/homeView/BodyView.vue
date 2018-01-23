@@ -12,8 +12,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-	position: absolute;
+	width: 100vw;
 	overflow: auto;
-	top: 40px; right: 0; bottom: 60px; left: 0;
+	margin: 40px 0 60px;
 }
 </style>

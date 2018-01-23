@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '../store/index';
 
 import Header from '@/vue/components/Header';
 import Footer from '@/vue/components/Footer';
@@ -13,10 +14,9 @@ import Daily from '@/vue/view/homeView/Daily';
 import Discovery from '@/vue/view/homeView/Discovery';
 import Category from '@/vue/view/homeView/Category';
 
-
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
 		path: '/',
@@ -65,5 +65,12 @@ export default new Router({
 			name: 'reply',
 			component: ReplyView
 		}
-  ]
-})
+	],
+});
+
+router.beforeEach((to, from, next) => {
+	store.commit('ui/recordFromPath', from.path);
+	next();
+});
+
+export default router;

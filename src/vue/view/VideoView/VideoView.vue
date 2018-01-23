@@ -3,7 +3,7 @@
         video.video#video(controls autoplay :src="video.playUrl")
         div.content
             div.cover(:style="`background-image: url(${video.cover.blurred})`")
-            button.return(@click.prevent="returnTo") 返回
+            button.return(@click.prevent="$_backTo") 返回
             div.infos.section
                 h4.title {{ video.title }}
                 p.detail \#{{ video.category }} / {{ video.duration | secondToMin }} / {{ author.name }}
@@ -43,7 +43,6 @@ export default {
     },
     data () {
         return {
-            fromPath: null,
             video: null
         }
     },
@@ -71,9 +70,6 @@ export default {
         }
     },
     methods: {
-        returnTo () {
-            this.$router.push({ path: this.fromPath });
-        },
         requestRelatedVideos (id) {
             const params = { id };
             this.$store.dispatch('videos/requestRelatedVideos', params);
@@ -88,12 +84,6 @@ export default {
         const { id } = this.$route.query;
         this.queryVideo(id);
         this.requestRelatedVideos(id);
-    },
-    beforeRouteEnter (to, from, next) {
-        const { fullPath } = from;
-        next(vm => {
-            vm.fromPath = fullPath;
-        });
     }
 }
 </script>

@@ -1,4 +1,8 @@
 import Vue from 'vue';
+import url from 'url';
+import { mapGetters } from 'vuex';
+
+import { queryToObject } from '../assets/util';
 
 import Menu from './Menu';
 import MenuItem from './MenuItem';
@@ -32,15 +36,22 @@ plugin.install = () => {
                 this.$router.push({ name: 'video', query: { id: vid } });
             },
             $_toAuthorPage (aid) {
-                console.log(aid);
+
             },
-            $_toVideoReplyPage (vid) {
-                this.$router.push({ name: 'reply', query: { id: vid } });
+            $_toVideoReplyPage (actionUrl) {
+                const query = url.parse(actionUrl).query;
+                this.$router.push({ name: 'reply', query: queryToObject(query) });
+            },
+            $_backTo () {
+                this.$router.push({ path: this.fromPath });
             }
+        },
+        computed: {
+            ...mapGetters('ui', [ 'fromPath' ])
         }
     })
     const components = [ 
-        Menu, 
+        Menu,
         MenuItem, 
         FollowCard, 
         VideoList, 

@@ -44,6 +44,8 @@ export default {
     @include flex(column);
     @include split-line;
     padding: 3vw 0;
+    width: 100vw;
+    overflow: auto;
     
     
     .header {

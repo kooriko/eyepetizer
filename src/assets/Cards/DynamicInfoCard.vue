@@ -1,8 +1,8 @@
 <template lang="pug">
     div.m-dynamic-info-card(v-if="data.dynamicType === 'reply'")
         img.avatar(:src="user.avatar" width="40" height="40" @click="$_toUserPage(user.uid)")
-        div.detail(@click="$_toVideoReplyPage(simpleVideo.id)")
-            p.nickname.g-title {{ user.nickname }}
+        div.detail(@click="$_toVideoReplyPage(data.actionUrl)")
+            p.nick-name.g-title {{ user.nickname }}
             p.text.g-desc {{ data.text }}
             p.reply {{ reply.message }}
             div.simple-video(@click.stop="$_toVideoPage(simpleVideo.id)")
@@ -56,11 +56,6 @@ export default {
 
     .detail {
         @include flex(column);
-
-        .nickname {
-            max-width: 65vw;
-            @include text-ellipsis;
-        }
         .text {
             font-weight: 400;
         }

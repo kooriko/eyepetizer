@@ -30,6 +30,8 @@ export default {
 @import '../../styles/var.scss';
 
 .m-square-card-collection {
+    width: 100vw;
+    overflow: auto;
     @include flex(column);
     @include split-line;
     padding: 4vw 0;

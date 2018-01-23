@@ -1,8 +1,8 @@
 <template lang="pug">
     li.u-video
         div.video-img(@click="$_toVideoPage(data.id)")
-            div.cover.div(v-if="data.backgroundMode" :style="`background-image: url(${data.cover});`")
-            img.cover.img(v-else :src="data.cover")
+            //- div.cover.div(v-if="data.backgroundMode" :style="`background-image: url(${data.cover});`")
+            img.cover.img(:src="data.cover")
             duration(:duration="data.duration")
         div.video-detail(v-if="detail")
             p.title {{ detail.title }}
@@ -17,7 +17,7 @@ export default {
 
     computed: {
         detail () {
-            return this.data.detail
+            return this.data.detail;
         }
     }
 }

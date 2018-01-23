@@ -12,7 +12,9 @@ i, a {
 a {
     color: unset;
 }
-
+button, input[type=button] {
+    cursor: pointer;
+}
 ul, li {
     margin: 0;
     padding: 0;
@@ -58,4 +60,17 @@ body {
 
 .i-right {
     margin-left: 2vw;
+}
+
+.eyepetizer-btn {
+    border: 1px solid #EEE;
+    background: rgba(0, 0, 0, 0);
+    font-size: 12px;
+    padding: .5vw 2vw;
+    font-weight: 600;
+    color: #EEE;
+}
+.nick-name {
+    @include text-ellipsis;
+    max-width: 70vw;
 }
