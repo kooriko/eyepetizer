@@ -1,6 +1,8 @@
 <template lang="pug">
     div.m-dynamic-info-card(v-if="data.dynamicType === 'reply'")
+        //- 头像
         img.avatar(:src="user.avatar" width="40" height="40" @click="$_toUserPage(user.uid)")
+        //- 评论
         div.detail(@click="$_toVideoReplyPage(data.actionUrl)")
             p.nick-name.g-title {{ user.nickname }}
             p.text.g-desc {{ data.text }}
@@ -13,8 +15,6 @@
             div.info.g-desc
                 p.likeCount 赞 {{ reply.likeCount }}
                 p.create-date {{ reply.createDate | getDate }}
-
-
 </template>
 <script>
 export default {

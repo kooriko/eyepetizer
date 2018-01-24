@@ -9,6 +9,7 @@ import BodyView from '@/vue/view/homeView/BodyView';
 import VideoView from '@/vue/view/VideoView/VideoView';
 import ReplyView from '@/vue/view/ReplyView/ReplyView';
 import CategoryView from '@/vue/view/CategoryView/CategoryView';
+import TestView from '@/vue/view/TestView';
 
 import Recommand from '@/vue/view/homeView/Recommand';
 import Daily from '@/vue/view/homeView/Daily';
@@ -69,6 +70,11 @@ const router = new Router({
 			path: '/category/:categoryId',
 			name: 'category',
 			component: CategoryView
+		},
+		{
+			path: '/t',
+			name: 'test',
+			component: TestView
 		}
 	],
 });

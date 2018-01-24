@@ -35,7 +35,7 @@ const state = {
     recommendData: [],
     dailyData: [],
     categoryData: {},
-    replyData: []
+
 };
 
 const getters = {
@@ -46,7 +46,6 @@ const getters = {
     recommendData:  state => state.recommendData,
     dailyData: state => state.dailyData,
     originCategoryData: state => state.categoryData,
-    replyData: state => state.replyData
 };
 
 const mutations = {
@@ -83,9 +82,6 @@ const mutations = {
     setCategoryData (state, payload) {
         const { category, list } = payload;
         state.categoryData[category] = list;
-    },
-    setReplyData (state, payload) {
-        state.replyData = payload;
     }
 };
 
@@ -140,12 +136,6 @@ const actions = {
         const resVideo = await request.default(`http://baobab.kaiyanapp.com/api/v2/video/${id}`, params);
         commit('setVideoData', resVideo);
         return true;
-    },
-    async requestVideoReplies ({ commit }, params) {
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v2/replies/video`, params);
-        const { itemList, nextPageUrl } = res;
-
-        commit('setReplyData', itemList);
     }
 }
 

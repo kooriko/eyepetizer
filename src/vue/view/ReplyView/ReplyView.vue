@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         async requestVideoReplies (query) {
-            this.$store.dispatch('videos/requestVideoReplies', { ...query });
+            this.$store.dispatch('replies/requestVideoReplies', { ...query });
         },
     },
     created () {
