@@ -18,10 +18,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('categories', [
-            'categoryViewBatch',
-            'categoryData'
-        ]),
+        // ...mapGetters('sp', [
+        //     'categoryViewBatch',
+        //     'categoryData',
+        // ]),
         categoryInfo () {
             return this.categoryViewBatch.categoryInfo;
         },
@@ -30,18 +30,18 @@ export default {
         }
     },
     methods: {
-        initCategory (params) {
-            this.$store.dispatch('categories/getCategoryData', params);
-            this.$store.dispatch('categories/getCategoryViewBatch', params);
+        initData (type, params) {
+            this.$store.dispatch(`sp/request${type}Data`, params);
+            this.$store.dispatch(`sp/request${type}ViewBatch`, params);
         },
         changeTabIndex (index) {
             this.tabIndex = index;
         }
     },
     created () {
-        const { categoryId } = this.$route.params;
-        const params = Object.assign(_.cloneDeep(this.$route.query), { id: categoryId });
-        this.initCategory(params);
+        const { type, id } = this.$route.params;
+        const params = Object.assign(_.cloneDeep(this.$route.query), { id });
+        this.initData(type, params);
     }
 }
 </script>

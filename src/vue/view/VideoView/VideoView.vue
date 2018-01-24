@@ -3,9 +3,12 @@
         video.video#video(ref="video" controls autoplay :src="video.playUrl")
         div.video-details(:style="`margin-top: ${videoHeight}px;`")
             transition(name="slide" @after-enter="changeContentShow(false)" @before-leave="changeContentShow(true)")
-                div.slide-card.reply(v-show="card === 'reply'")
+                div.slide-card.card-reply(v-show="card === 'reply'")
                     div.cover(:style="`background-image: url(${video.cover.blurred});`")
-                    h1(@click="showCard('reply')") 返回
+                    div.reply-options
+                        img.avatar(src="" height="40" width="40")
+                        input.ipt-reply(placeholder="发表你的评论…")
+                        i.fa.fa-close.btn-close.f-small(@click="showCard('reply')") 关闭
                     component(v-for="(item, index) in replyData" :key="index" :is="item.type" :data="item.data")
 
             div.content(v-if="contentShow")
@@ -14,7 +17,7 @@
                 div.infos.section
                     h4.title {{ video.title }}
                     p.detail \#{{ video.category }} / {{ video.duration | secondToMin }} / {{ author.name }}
-                    p.desc {{ video.description }} 
+                    p.desc.f-small {{ video.description }} 
                     ul.consumption
                         li.item 喜欢 
                             span.value {{ consumption.collectionCount }}
@@ -124,6 +127,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../styles/var.scss';
+
 .slide-enter-active, .slide-leave-active {
     transition: all .3s;
     top: 0;
@@ -157,6 +162,21 @@ export default {
         .slide-card {
             position: absolute;
             z-index: 10;
+        }
+        .card-reply {
+            .reply-options {
+                @include flex(row, space-between, center);
+                @include padding(3vw);
+                background-color: rgba(0, 0, 0, .2);
+                @include split-line(#999);
+
+                .ipt-reply {
+                    flex-grow: 1;
+                }
+                .btn-close {
+                    margin-left: 2vw;
+                }
+            }
         }
         .content {
             position: relative;
@@ -203,8 +223,7 @@ export default {
                     font-weight: 300;
                 }
                 .desc {
-                    padding: 10px 0;
-                    font-size: 13px;
+                    padding: 14px 0;
                     font-weight: 300;
                 }
                 .consumption {

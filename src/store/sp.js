@@ -22,6 +22,12 @@ const mutations = {
 };
 
 const actions = {
+    async getTagData ({ commit }, params = {}) {
+
+    },
+    async getTagViewBatch ({ commit }, params = {}) {
+
+    },
     async getCategoryData ({ commit }, params = {}) {
         const res = await request.default(`/api/v4/categories/detail/index/`, params);
         const { itemList } = res;

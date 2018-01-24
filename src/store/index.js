@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import ui from './ui';
 import replies from './replies';
 import videos from './videos';
-import categories from './categories';
+import sp from './sp';
 
 Vue.use(Vuex);
 
@@ -13,6 +13,6 @@ export default new Vuex.Store({
         ui,
         replies,
         videos,
-        categories,
+        sp
     }
 });

@@ -8,7 +8,7 @@ import Footer from '@/vue/components/Footer';
 import BodyView from '@/vue/view/homeView/BodyView';
 import VideoView from '@/vue/view/VideoView/VideoView';
 import ReplyView from '@/vue/view/ReplyView/ReplyView';
-import CategoryView from '@/vue/view/CategoryView/CategoryView';
+import SpView from '@/vue/view/SpView/SpView';
 import TestView from '@/vue/view/TestView';
 
 import Recommand from '@/vue/view/homeView/Recommand';
@@ -67,9 +67,9 @@ const router = new Router({
 			name: 'reply',
 			component: ReplyView
 		}, {
-			path: '/category/:categoryId',
-			name: 'category',
-			component: CategoryView
+			path: '/sp/:id',
+			name: 'sp',
+			component: SpView
 		},
 		{
 			path: '/t',
