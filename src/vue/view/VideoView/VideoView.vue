@@ -2,13 +2,14 @@
     div.video-container(v-if="video")
         video.video#video(ref="video" controls autoplay :src="video.playUrl")
         div.video-details(:style="`margin-top: ${videoHeight}px;`")
-            div.cover(:style="`background-image: url(${video.cover.blurred});`")
-            transition(name="slide" v-if="card === 'reply'")
-                div.slide-card.reply
-                        h1(@click="showCard('reply')") 返回
-                        component(v-for="(item, index) in replyData" :key="index" :is="item.type" :data="item.data")
+            transition(name="slide" @after-enter="changeContentShow(false)" @before-leave="changeContentShow(true)")
+                div.slide-card.reply(v-show="card === 'reply'")
+                    div.cover(:style="`background-image: url(${video.cover.blurred});`")
+                    h1(@click="showCard('reply')") 返回
+                    component(v-for="(item, index) in replyData" :key="index" :is="item.type" :data="item.data")
 
-            div.content(v-else)
+            div.content(v-if="contentShow")
+                div.cover(:style="`background-image: url(${video.cover.blurred});`")
                 button.return(@click.prevent="$_backTo") 返回
                 div.infos.section
                     h4.title {{ video.title }}
@@ -51,7 +52,8 @@ export default {
         return {
             video: null,
             videoHeight: 0,
-            card: ''
+            card: '',
+            contentShow: true,
         }
     },
     watch: {
@@ -86,6 +88,9 @@ export default {
         showCard (cardName) {
             this.card = this.card === cardName ?  '' : cardName;
         },
+        changeContentShow (flag) {
+            this.contentShow = flag;
+        },
         async requestVideoReplies (id) {
             const params = { videoId: id };
             this.$store.dispatch('replies/requestVideoReplies', params);
@@ -119,6 +124,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-enter-active, .slide-leave-active {
+    transition: all .3s;
+    top: 0;
+}
+.slide-enter, .slide-leave-to {
+    top: 100vh;
+}
+
 .video-container {
     display: flex;
     flex-direction: column;
@@ -135,15 +148,15 @@ export default {
         .cover {
             position: absolute;
             top: 0; bottom: 0; left: 0; right: 0;
+            z-index: -1;
             overflow: auto;
             background-size: cover;
             filter: brightness(.7);
         }
 
         .slide-card {
-            position: relative;
+            position: absolute;
             z-index: 10;
-            // margin-top: 0;
         }
         .content {
             position: relative;
