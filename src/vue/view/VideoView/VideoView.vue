@@ -1,7 +1,7 @@
 <template lang="pug">
     div.video-container(v-if="video")
-        video.video#video(controls autoplay :src="video.playUrl")
-        div.content
+        video.video#video(ref="video" controls autoplay :src="video.playUrl")
+        div.content(:style="`margin-top: ${videoHeight}px;`")
             div.cover(:style="`background-image: url(${video.cover.blurred})`")
             button.return(@click.prevent="$_backTo") 返回
             div.infos.section
@@ -13,7 +13,7 @@
                         span.value {{ consumption.collectionCount }}
                     li.item 分享 
                         span.value {{ consumption.shareCount }}
-                    li.item 评论 
+                    li.item(@click="showCard('reply')") 评论 
                         span.value {{ consumption.replyCount }}
                     li.item 
                         span.value 缓存
@@ -28,11 +28,14 @@
                     p.desc {{ author.description }}
 
             component(v-for="(item, index) in relatedVideos" :key="index" :is="item.type" :data="item.data")
-                
+
+        div.slide-card.reply(v-show="card === 'reply'")
+
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { getVideoHeight } from '@/assets/util';
 
 export default {
     filters: {
@@ -43,7 +46,9 @@ export default {
     },
     data () {
         return {
-            video: null
+            video: null,
+            videoHeight: 0,
+            card: ''
         }
     },
     watch: {
@@ -72,14 +77,22 @@ export default {
         }
     },
     methods: {
-        requestRelatedVideos (id) {
+        showCard (cardName) {
+            this.card = cardName;
+        },
+        async requestRelatedVideos (id) {
             const params = { id };
             this.$store.dispatch('videos/requestRelatedVideos', params);
         },
         async queryVideo (id) {
             const params = { id };
             const flag = await this.$store.dispatch('videos/queryVideo', params);
-            this.video = this.getVideoById(id);
+
+            const video = this.getVideoById(id);
+            const videoInfo = video.playInfo[0];
+            const videoHeight = getVideoHeight(videoInfo.width, videoInfo.height);
+            this.videoHeight = videoHeight;
+            this.video = video;
         }
     },
     created () {
@@ -87,7 +100,7 @@ export default {
         if (!id) this.$router.push({ name: 'home-recommand' });
         this.queryVideo(id);
         this.requestRelatedVideos(id);
-    }
+    },
 }
 </script>
 
@@ -97,7 +110,10 @@ export default {
     flex-direction: column;
 
     .video {
+        position: fixed;
+        z-index: 10;
         width: 100vw;
+
     }
     .content {
         position: relative;
@@ -220,6 +236,9 @@ export default {
                 }
             }
         }
+    }
+    .slide-card {
+        margin-top: 30vh;
     }
 }
 </style>
