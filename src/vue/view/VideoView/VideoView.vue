@@ -48,6 +48,8 @@ export default {
     },
     watch: {
         '$route.query.id' (after) {
+            if (!after) this.$router.push({ name: 'home-recommand' });
+            this.queryVideo(after);
             this.requestRelatedVideos(after);
         }
     },
@@ -82,6 +84,7 @@ export default {
     },
     created () {
         const { id } = this.$route.query;
+        if (!id) this.$router.push({ name: 'home-recommand' });
         this.queryVideo(id);
         this.requestRelatedVideos(id);
     }

@@ -48,6 +48,7 @@ export default {
             this.$emit('change', index);
         },
         changeTranslateX (index) {
+            console.log(this.realItemWidth);
             this.translateX = (this.realItemWidth - this.hoverBarWidth) / 2 + this.realItemWidth * index;
         }
     },
@@ -75,11 +76,8 @@ export default {
     },
     mounted () {
         const { menu } = this.$refs;
-
-        this.$nextTick(() => {
-            this.realItemWidth = menu.children[0].offsetWidth;
-            this.changeTranslateX(this.activeIndex);
-        });
+        this.realItemWidth = menu.children[0].offsetWidth;
+        this.changeTranslateX(this.activeIndex);
     }
 }
 </script>
@@ -112,7 +110,6 @@ export default {
             height: 3px;
             background: #666;
             bottom: 15px;
-            transform: translateX(77px);
             transition: transform .3s;
         }
     }

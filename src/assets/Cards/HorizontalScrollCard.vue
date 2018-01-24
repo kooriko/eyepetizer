@@ -25,11 +25,13 @@ export default {
 .m-horizontal-scroll-card {
     height: 220px;
     padding: 3vw 0;
+    overflow: hidden;
 
     .card-list {
         @include flex(row);
         white-space: nowrap;
         padding-bottom: 40px;
+        overflow: auto;
 
         .scroll-card {
             flex-shrink: 0;

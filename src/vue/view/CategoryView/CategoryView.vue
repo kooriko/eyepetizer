@@ -3,7 +3,7 @@
         div.header(:style="`background-image: url(${categoryInfo.headerImage})`")
             h3.g-title.title {{ categoryInfo.name }}
             p.f-small.f-light {{ categoryInfo.description }}
-        eye-menu.navigator(:defaultIndex="tabIndex" @change="changeTabIndex")
+        eye-menu.navigator(:defaultIndex="tabIndex" @change="changeTabIndex" v-if="tabInfo.tabList")
             eye-menu-item.nav(v-for="(item, index) in tabInfo.tabList" width="25%" :key="index" :index="String(index)") {{ item.name }}
         div.main-body
             component(v-for="(item, index) in categoryData" :key="index" :is="item.type" :data="item.data")

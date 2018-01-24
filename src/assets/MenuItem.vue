@@ -22,9 +22,6 @@ export default {
         clickHandler () {
             this.$bus.$emit('handleClick', this.index);
         }
-    },
-    created () {
-        console.log(this.width);
     }
 }
 </script>
