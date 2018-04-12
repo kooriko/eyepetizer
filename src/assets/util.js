@@ -14,9 +14,3 @@ export const queryToObject = query => {
 
     return obj;
 }
-
-export const getVideoHeight = (videoWidth, videoHeight) => {
-    const windowWidth = window.innerWidth;
-    const scale =  windowWidth / videoWidth;
-    return (videoHeight * scale) | 0;
-}

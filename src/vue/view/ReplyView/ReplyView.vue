@@ -14,11 +14,10 @@ import { mapGetters } from 'vuex';
 export default {
     data () {
         return {
-            
         }
     },
     computed: {
-        ...mapGetters('videos', [
+        ...mapGetters('replies', [
             'replyData'
         ])
     },
@@ -28,7 +27,6 @@ export default {
         },
     },
     created () {
-        console.log(this.$route.query.videoTitle);
         this.requestVideoReplies(this.$route.query);
     }
 }
