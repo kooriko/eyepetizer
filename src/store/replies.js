@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
     async requestVideoReplies ({ commit }, params) {
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v2/replies/video`, params);
+        const res = await request(`http://baobab.kaiyanapp.com/api/v2/replies/video`, params);
         const { itemList, nextPageUrl } = res;
 
         commit('setReplyData', itemList);

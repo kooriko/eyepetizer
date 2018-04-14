@@ -29,12 +29,12 @@ const actions = {
 
     },
     async getCategoryData ({ commit }, params = {}) {
-        const res = await request.default(`/api/v4/categories/detail/index/`, params);
+        const res = await request(`/api/v4/categories/detail/index/`, params);
         const { itemList } = res;
         commit('setCategoryData', itemList);
     },
     async getCategoryViewBatch ({ commit }, params = {}) {
-        const res = await request.default(`/api/v4/categories/detail/tab/`, params);
+        const res = await request(`/api/v4/categories/detail/tab/`, params);
         console.log(res);
         commit('setCategoryViewBatch', res);
     }

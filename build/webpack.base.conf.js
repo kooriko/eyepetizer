@@ -73,8 +73,8 @@ module.exports = {
       '_': 'lodash',
       'moment': 'moment',
       'axios': 'axios',
-      'request': 'request'
-    }),
+      'request': ['request', 'default']
+    })
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

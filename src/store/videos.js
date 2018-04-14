@@ -88,7 +88,7 @@ const mutations = {
 const actions = {
     async requestCategoryData ({ commit }, originParams = {}) {
         const { category, ...params } = originParams;
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v5/index/tab/category/${category}?`, params);
+        const res = await request(`http://baobab.kaiyanapp.com/api/v5/index/tab/category/${category}?`, params);
         const { itemList } = res;
         const videoList = getVideos(itemList);
         commit('setVideoData', videoList);
@@ -98,7 +98,7 @@ const actions = {
         });
     },
     async requestDailyData ({ commit }, params = {}) {
-        const res = await request.default('http://baobab.kaiyanapp.com/api/v5/index/tab/feed', params);
+        const res = await request('http://baobab.kaiyanapp.com/api/v5/index/tab/feed', params);
         const { itemList } = res;
         const videoList = getVideos(itemList);
 
@@ -106,7 +106,7 @@ const actions = {
         commit('setDailyData', itemList);
     },
     async requestDiscoveryData ({ commit }, params = {}) {
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v5/index/tab/discovery`, params);
+        const res = await request(`http://baobab.kaiyanapp.com/api/v5/index/tab/discovery`, params);
         const { itemList } = res;
         const videoList = getVideos(itemList);
 
@@ -114,14 +114,14 @@ const actions = {
         commit('setDiscoveryData', itemList);
     },
     async requestRelatedVideos ({ commit }, params = {}) {
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v4/video/related`, params);
+        const res = await request(`http://baobab.kaiyanapp.com/api/v4/video/related`, params);
         const { itemList } = res;
         const videoList = getVideos(itemList);
         commit('setVideoData', videoList);
         commit('setRelatedVideos', itemList);
     },
     async requestRecommendData ({ commit }, params = {}) {
-        const res = await request.default(`http://baobab.kaiyanapp.com/api/v5/index/tab/allRec`, params);
+        const res = await request(`http://baobab.kaiyanapp.com/api/v5/index/tab/allRec`, params);
 
         const { itemList, nextPageUrl } = res;
         const videoList = getVideos(itemList);
@@ -133,7 +133,7 @@ const actions = {
         const video = getters.getVideoById(id);
         if (video) return true;
 
-        const resVideo = await request.default(`http://baobab.kaiyanapp.com/api/v2/video/${id}`, params);
+        const resVideo = await request(`http://baobab.kaiyanapp.com/api/v2/video/${id}`, params);
         commit('setVideoData', resVideo);
         return true;
     }
