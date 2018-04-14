@@ -93,6 +93,7 @@ export default {
             this.videoHeight = e.target.offsetHeight;
         },
         initVideo (id) {
+            document.body.scrollTop = 0;
             this.queryVideo(id);
             this.requestRelatedVideos(id);
             this.requestVideoReplies(id);
@@ -114,7 +115,7 @@ export default {
         },
         async queryVideo (id) {
             const params = { id };
-            const flag = await this.$store.dispatch('videos/queryVideo', params);
+            await this.$store.dispatch('videos/queryVideo', params);
 
             const video = this.getVideoById(id);
             this.video = video;
